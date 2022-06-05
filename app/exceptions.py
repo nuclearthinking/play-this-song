@@ -1,0 +1,6 @@
+class AppException(Exception):
+    ...
+
+
+class NotAuthorizedException(AppException):
+    ...
