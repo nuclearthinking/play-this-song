@@ -23,6 +23,7 @@ async def get_access_token(code: str) -> str:
 
 async def get_user_data(access_token: str) -> TwitchUser:
     async with aiohttp.ClientSession() as session:
+
         async with session.get(
             url="https://api.twitch.tv/helix/users",
             headers={
