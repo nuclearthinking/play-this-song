@@ -1,7 +1,7 @@
+import sqlalchemy as sa
 from pydantic import BaseModel
 
 from app.database import Base
-import sqlalchemy as sa
 
 
 class UserOrm(Base):

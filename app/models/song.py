@@ -1,10 +1,10 @@
-from pydantic import BaseModel
-
-from app.database import Base
+from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
+from pydantic import BaseModel
 from sqlalchemy.orm import relationship
-from typing import TYPE_CHECKING
+
+from app.database import Base
 
 if TYPE_CHECKING:
     from app.models.artist import Artist, ArtistOrm

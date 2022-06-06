@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from app.database import Base
 
 if TYPE_CHECKING:
-    from app.models.song import SongOrm, Song
+    from app.models.song import Song, SongOrm
 
 
 class ArtistOrm(Base):
