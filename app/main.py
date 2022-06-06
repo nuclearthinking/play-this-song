@@ -7,6 +7,20 @@ from app.dependencies import cookie_auth
 from app.entities.twitch import TwitchUser
 from app.exceptions import NotAuthorizedException
 from app.routers import login
+from app.database import Base, engine
+
+from app.models import *
+
+Base.metadata.create_all(bind=engine)
+
+
+# def dump(sql, *multiparams, **params):
+#     print(sql.compile(dialect=engine.dialect))
+#
+#
+# engine = create_mock_engine("mysql://", dump)
+# Base.metadata.create_all(engine, checkfirst=False)
+
 
 app = FastAPI()
 app.include_router(login.router)

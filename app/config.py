@@ -9,3 +9,5 @@ TWITCH_SCOPES = "user:read:email user:read:follows"
 REDIRECT_URI = "http://localhost:8000/auth/callback"
 
 JWT_SECRET = os.getenv("JWT_SECRET")
+
+DATABASE_URL = "mysql+mysqlconnector://play_this_song:pass@localhost/play_this_song"
