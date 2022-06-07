@@ -3,23 +3,10 @@ import logging
 from fastapi import Depends, FastAPI
 from starlette.responses import RedirectResponse
 
-from app.database import Base, engine
 from app.dependencies import cookie_auth
 from app.entities.twitch import TwitchUser
 from app.exceptions import NotAuthorizedException
-from app.models import *
 from app.routers import login
-
-Base.metadata.create_all(bind=engine)
-
-
-# def dump(sql, *multiparams, **params):
-#     print(sql.compile(dialect=engine.dialect))
-#
-#
-# engine = create_mock_engine("mysql://", dump)
-# Base.metadata.create_all(engine, checkfirst=False)
-
 
 app = FastAPI()
 app.include_router(login.router)
