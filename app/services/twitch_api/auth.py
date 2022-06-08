@@ -1,7 +1,6 @@
 import aiohttp
 
-from app.config import (REDIRECT_URI, TWITCH_CLIENT_ID, TWITCH_SECRET,
-                        TWITCH_TOKEN_URI)
+from app.config import REDIRECT_URI, TWITCH_CLIENT_ID, TWITCH_SECRET, TWITCH_TOKEN_URI
 from app.entities.twitch import TwitchTokenResponse, TwitchUser
 
 
@@ -24,7 +23,6 @@ async def get_access_token(code: str) -> str:
 
 async def get_user_data(access_token: str) -> TwitchUser:
     async with aiohttp.ClientSession() as session:
-
         async with session.get(
             url="https://api.twitch.tv/helix/users",
             headers={

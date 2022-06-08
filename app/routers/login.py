@@ -6,8 +6,7 @@ from fastapi import APIRouter, Request
 from jose import jwt
 from starlette.responses import RedirectResponse
 
-from app.config import (JWT_SECRET, REDIRECT_URI, TWITCH_AUTH_URI,
-                        TWITCH_CLIENT_ID, TWITCH_SCOPES)
+from app.config import JWT_SECRET, REDIRECT_URI, TWITCH_AUTH_URI, TWITCH_CLIENT_ID, TWITCH_SCOPES
 from app.entities.twitch import TwitchUser
 from app.services.twitch_api.auth import get_access_token, get_user_data
 
