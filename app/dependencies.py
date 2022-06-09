@@ -9,7 +9,9 @@ from app.exceptions import NotAuthorizedException, NotEnoughPermissions
 
 
 class CookieAuth(SecurityBase):
-    def __init__(self, scheme_name: str = None, admin_users: list[str] = []):
+    def __init__(self, scheme_name: str = None, admin_users=None):
+        if admin_users is None:
+            admin_users = []
         self.scheme_name = scheme_name or self.__class__.__name__
         self.admin_users = admin_users
 

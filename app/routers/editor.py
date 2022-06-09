@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, Request
 
 from app.dependencies import auth_as_admin
-from app.entities.artist import Artist
 from app.entities.editor import CreateArtistRequest
 from app.repository.database.song_repository import create_artist
 

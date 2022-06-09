@@ -9,8 +9,8 @@ python = "^3.10"
 fastapi = "^0.78.0"
 uvicorn = "^0.17.6"
 python-multipart = "^0.0.5"
-aiohttp = {extras = ["speedups"], version = "^3.8.1"}
-python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+aiohttp = { extras = ["speedups"], version = "^3.8.1" }
+python-jose = { extras = ["cryptography"], version = "^3.3.0" }
 SQLAlchemy = "^1.4.37"
 SQLAlchemy-Utils = "^0.38.2"
 mysql-connector-python = "^8.0.29"
@@ -29,3 +29,14 @@ line_length = 120
 
 [tool.black]
 line-length = 120
+
+[tool.pylint.messages_control]
+max-line-length = 120
+disable = [
+    "too-few-public-methods",
+    "no-name-in-module",
+    "missing-class-docstring",
+    "missing-module-docstring",
+    "missing-function-docstring",
+    "no-member"
+]
