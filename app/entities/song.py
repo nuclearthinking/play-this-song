@@ -1,16 +1,16 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from pydantic import BaseModel
 
 if TYPE_CHECKING:
+    from app.entities.artist import ArtistScheme
 
-    from app.entities.artist import Artist
 
-
-class Song(BaseModel):
-    id: int
+class SongScheme(BaseModel):
+    id: int | None = None
+    title: str
     text: str
-    artist: "Artist"
+    artist: Optional["ArtistScheme"] = None
 
     class Config:
         orm_mode = True

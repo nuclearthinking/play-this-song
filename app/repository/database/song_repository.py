@@ -1,27 +1,37 @@
+import sqlalchemy as sa
+
 from app.database import db_session
-from app.entities.artist import Artist
-from app.entities.song import Song
-from app.models.artist import ArtistOrm
-from app.models.song import SongOrm
+from app.models.artist import Artist
+from app.models.song import Song
 
 
 def create_song(song: Song, artist: Artist) -> Song:
-    song_orm = SongOrm(**song.dict(), artist_id=artist.id)
-    db_session.add(song_orm)
+    song.artist = artist
+    db_session.add(song)
     db_session.commit()
-    db_session.refresh(song_orm)
-    return Song.from_orm(song_orm)
+    db_session.refresh(song)
+    db_session.refresh(artist)
+    return song
 
 
 def create_artist(artist_name: str) -> Artist:
-    artist_orm = ArtistOrm(
+    artist = Artist(
         name=artist_name,
     )
-    db_session.add(artist_orm)
+    db_session.add(artist)
     db_session.commit()
-    db_session.refresh(artist_orm)
-    return Artist.from_orm(artist_orm)
+    db_session.refresh(artist)
+    return artist
 
 
-async def get_all_artist() -> list[Artist]:
-    ...
+def get_all_artist() -> list[Artist]:
+    query = sa.select(Artist)
+    return db_session.execute(query).scalars().all()
+
+
+def get_artist(artist_name: str) -> Artist | None:
+    query = sa.select(Artist).where(Artist.name == artist_name)
+    result = db_session.execute(query).scalar_one_or_none()
+    if not result:
+        return None
+    return result
