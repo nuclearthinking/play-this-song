@@ -38,5 +38,6 @@ disable = [
     "missing-class-docstring",
     "missing-module-docstring",
     "missing-function-docstring",
-    "no-member"
+    "no-member",
+    "import-error"
 ]
