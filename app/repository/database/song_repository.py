@@ -1,8 +1,7 @@
 import sqlalchemy as sa
 
 from app.database import db_session
-from app.models.artist import Artist
-from app.models.song import Song
+from app.models.db_models import Artist, Song
 
 
 def create_song(song: Song, artist: Artist) -> Song:

@@ -1,7 +1,7 @@
 import aiohttp
 
 from app.config import REDIRECT_URI, TWITCH_CLIENT_ID, TWITCH_SECRET, TWITCH_TOKEN_URI
-from app.entities.twitch import TwitchTokenResponse, TwitchUser
+from app.schemes.twitch import TwitchTokenResponse, TwitchUser
 
 
 async def get_access_token(code: str) -> str:
