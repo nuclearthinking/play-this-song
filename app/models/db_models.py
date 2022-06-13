@@ -9,7 +9,7 @@ class Artist(Base):
 
     id: int = sa.Column(sa.Integer, autoincrement=True, primary_key=True)
     name: str = sa.Column(sa.String(255), nullable=False, unique=True)
-    songs = relationship("Song", back_populates="artist")
+    songs = relationship("Song", back_populates="artist", lazy="selectin")
 
 
 class Song(Base):
@@ -19,4 +19,4 @@ class Song(Base):
     text: str = sa.Column(sa.Text, nullable=False)
     title: str = sa.Column(sa.String(255), nullable=False)
     artist_id: int = sa.Column(sa.Integer, sa.ForeignKey("artist.id"), nullable=False)
-    artist = relationship("Artist", back_populates="songs")
+    artist = relationship("Artist", back_populates="songs", lazy="selectin")

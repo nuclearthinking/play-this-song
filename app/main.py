@@ -4,9 +4,9 @@ from fastapi import Depends, FastAPI
 from starlette.responses import RedirectResponse
 
 from app.dependencies import auth_as_user
-from app.schemes.twitch import TwitchUser
 from app.exceptions import NotAuthorizedException
 from app.routers import editor, login
+from app.schemes.twitch import TwitchUser
 
 app = FastAPI()
 

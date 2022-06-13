@@ -4,8 +4,8 @@ from jose import jwt
 from jose.constants import ALGORITHMS
 
 from app.config import JWT_SECRET
-from app.schemes.twitch import TwitchUser
 from app.exceptions import NotAuthorizedException, NotEnoughPermissions
+from app.schemes.twitch import TwitchUser
 
 
 class CookieAuth(SecurityBase):
