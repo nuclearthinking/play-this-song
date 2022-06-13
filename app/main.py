@@ -1,8 +1,9 @@
 import logging
 
 from fastapi import Depends, FastAPI
-from starlette.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
+from starlette.staticfiles import StaticFiles
+
 from app.dependencies import auth_as_user
 from app.exceptions import NotAuthorizedException
 from app.routers import editor, login
@@ -26,7 +27,7 @@ async def not_authorized_redirect(*_, **__) -> RedirectResponse:
 
 @app.get("/", response_class=HTMLResponse)
 async def root(_: TwitchUser = Depends(auth_as_user)):
-    with open('app/static/index.html', 'r') as index_html:
+    with open("app/static/index.html", "r", encoding="utf8") as index_html:
         html_response = index_html.read()
     return HTMLResponse(
         content=html_response,
