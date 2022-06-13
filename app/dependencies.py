@@ -3,7 +3,7 @@ from fastapi.security.base import SecurityBase
 from jose import jwt
 from jose.constants import ALGORITHMS
 
-from app.config import JWT_SECRET
+from app.config import settings
 from app.exceptions import NotAuthorizedException, NotEnoughPermissions
 from app.schemes.twitch import TwitchUser
 
@@ -26,7 +26,7 @@ class CookieAuth(SecurityBase):
 
 
 def cookie_to_user(cookie: str) -> TwitchUser:
-    return TwitchUser.parse_obj(jwt.decode(token=cookie, key=JWT_SECRET, algorithms=[ALGORITHMS.HS256]))
+    return TwitchUser.parse_obj(jwt.decode(token=cookie, key=settings.jwt_secret, algorithms=[ALGORITHMS.HS256]))
 
 
 auth_as_user = CookieAuth()

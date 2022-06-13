@@ -1,18 +1,21 @@
+import uuid
+from urllib import parse
+
 import aiohttp
 
-from app.config import REDIRECT_URI, TWITCH_CLIENT_ID, TWITCH_SECRET, TWITCH_TOKEN_URI
+from app.config import settings
 from app.schemes.twitch import TwitchTokenResponse, TwitchUser
 
 
 async def get_access_token(code: str) -> str:
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            url=TWITCH_TOKEN_URI,
+            url=settings.twitch_token_uri,
             data={
-                "client_id": TWITCH_CLIENT_ID,
-                "client_secret": TWITCH_SECRET,
+                "client_id": settings.twitch_client_id,
+                "client_secret": settings.twitch_secret,
                 "code": code,
-                "redirect_uri": REDIRECT_URI,
+                "redirect_uri": settings.redirect_uri,
                 "grant_type": "authorization_code",
             },
         ) as response:
@@ -27,8 +30,21 @@ async def get_user_data(access_token: str) -> TwitchUser:
             url="https://api.twitch.tv/helix/users",
             headers={
                 "Authorization": f"Bearer {access_token}",
-                "Client-Id": TWITCH_CLIENT_ID,
+                "Client-Id": settings.twitch_client_id,
             },
         ) as response:
             response_body = await response.json()
             return TwitchUser.parse_obj(response_body["data"][0])
+
+
+def get_twitch_auth_url() -> str:
+    auth_url = f"{settings.twitch_auth_uri}?" + parse.urlencode(
+        {
+            "response_type": "code",
+            "client_id": settings.twitch_client_id,
+            "redirect_uri": settings.redirect_uri,
+            "scope": settings.twitch_scope,
+            "state": str(uuid.uuid4()),
+        }
+    )
+    return auth_url

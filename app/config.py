@@ -1,13 +1,26 @@
 import os
+from functools import lru_cache
 
-TWITCH_AUTH_URI = "https://id.twitch.tv/oauth2/authorize"
-TWITCH_TOKEN_URI = "https://id.twitch.tv/oauth2/token"
-TWITCH_SECRET = os.getenv("SECRET_KEY")
-TWITCH_CLIENT_ID = os.getenv("CLIENT_ID")
-TWITCH_SCOPES = "user:read:email user:read:follows"
+from pydantic import BaseSettings
 
-REDIRECT_URI = "http://localhost:8000/auth/callback"
 
-JWT_SECRET = os.getenv("JWT_SECRET")
+class Settings(BaseSettings):
+    twitch_auth_uri = "https://id.twitch.tv/oauth2/authorize"
+    twitch_token_uri = "https://id.twitch.tv/oauth2/token"
+    twitch_secret = os.getenv("SECRET_KEY")
+    twitch_client_id = os.getenv("CLIENT_ID")
+    twitch_scope = "user:read:email user:read:follows"
+    redirect_uri = "http://localhost:8000/auth/callback"
 
-DATABASE_URL = "mysql+aiomysql://play_this_song:pass@localhost/play_this_song"
+    jwt_secret = os.getenv("JWT_SECRET")
+
+    database_uri = "mysql+aiomysql://play_this_song:pass@localhost/play_this_song"
+
+
+@lru_cache
+def get_settings() -> Settings:
+
+    return Settings()
+
+
+settings = get_settings()

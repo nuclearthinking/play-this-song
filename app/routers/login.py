@@ -1,21 +1,19 @@
-import uuid
 from datetime import timedelta
-from urllib import parse
 
 from fastapi import APIRouter, Request
 from jose import jwt
 from starlette.responses import RedirectResponse
 
-from app.config import JWT_SECRET, REDIRECT_URI, TWITCH_AUTH_URI, TWITCH_CLIENT_ID, TWITCH_SCOPES
+from app.config import settings
 from app.schemes.twitch import TwitchUser
-from app.services.twitch_api.auth import get_access_token, get_user_data
+from app.services.twitch_api.auth import get_access_token, get_twitch_auth_url, get_user_data
 
 router = APIRouter()
 
 
 def user_to_cookie(user: TwitchUser) -> str:
     data = user.dict().copy()
-    return jwt.encode(data, JWT_SECRET)
+    return jwt.encode(data, settings.jwt_secret)
 
 
 @router.get("/auth/callback")
@@ -36,14 +34,5 @@ async def oauth_callback(request: Request) -> RedirectResponse:
 
 @router.get("/login")
 async def login():
-    auth_url = f"{TWITCH_AUTH_URI}?" + parse.urlencode(
-        {
-            "response_type": "code",
-            "client_id": TWITCH_CLIENT_ID,
-            "redirect_uri": REDIRECT_URI,
-            "scope": TWITCH_SCOPES,
-            "state": str(uuid.uuid4()),
-        }
-    )
-    response = RedirectResponse(url=auth_url)
+    response = RedirectResponse(url=get_twitch_auth_url())
     return response
