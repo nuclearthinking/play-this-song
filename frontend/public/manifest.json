@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PLAY",
+  "name": "Twitch musician repertoire list",
   "icons": [
     {
       "src": "favicon.ico",
