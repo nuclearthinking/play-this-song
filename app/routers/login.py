@@ -34,5 +34,4 @@ async def oauth_callback(request: Request) -> RedirectResponse:
 
 @router.get("/login")
 async def login():
-    response = RedirectResponse(url=get_twitch_auth_url())
-    return response
+    return RedirectResponse(url=get_twitch_auth_url())

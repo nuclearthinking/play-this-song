@@ -34,6 +34,4 @@ async def get_artist(artist_name: str) -> Artist | None:
     query = sa.select(Artist).where(Artist.name == artist_name)
     result = await async_db_session.execute(query)
     artists = result.scalar_one_or_none()
-    if not artists:
-        return None
-    return artists
+    return artists or None
