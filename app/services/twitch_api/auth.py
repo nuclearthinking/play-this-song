@@ -38,7 +38,7 @@ async def get_user_data(access_token: str) -> TwitchUser:
 
 
 def get_twitch_auth_url() -> str:
-    auth_url = f"{settings.twitch_auth_uri}?" + parse.urlencode(
+    return f"{settings.twitch_auth_uri}?" + parse.urlencode(
         {
             "response_type": "code",
             "client_id": settings.twitch_client_id,
@@ -47,4 +47,3 @@ def get_twitch_auth_url() -> str:
             "state": str(uuid.uuid4()),
         }
     )
-    return auth_url
